@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.PropertyFileReader;
 
 import javax.xml.stream.Location;
 import java.time.Duration;
@@ -18,10 +19,14 @@ public class RegisterUserTest1 {
 
     WebDriver driver = null ;
 
+    //creating obj of propertyfilereader
+    PropertyFileReader prop = new PropertyFileReader();
+    String baseURL = prop.getProperty("config","url");
+
     @Test
     public void testRegisterNewUser() throws InterruptedException {
         driver = new ChromeDriver(); // memory server, run on chrome browser
-        driver.get("https://demo.guru99.com/test/newtours/index.php");
+        driver.get(baseURL);
         driver.manage().window().maximize(); // maximize the window
 
         waitUntilNextElementAppears(By.linkText("REGISTER"), 30);
