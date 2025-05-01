@@ -4,19 +4,27 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import javax.xml.stream.Location;
+import java.time.Duration;
 import java.util.List;
 
 public class RegisterUserTest1 {
 
+    WebDriver driver = null ;
+
     @Test
     public void testRegisterNewUser() throws InterruptedException {
-        WebDriver driver = new ChromeDriver(); // memory server, run on chrome browser
+        driver = new ChromeDriver(); // memory server, run on chrome browser
         driver.get("https://demo.guru99.com/test/newtours/index.php");
         driver.manage().window().maximize(); // maximize the window
+
+        waitUntilNextElementAppears(By.linkText("REGISTER"), 30);
 
         /*WebElement registerMenuElement = driver.findElement(By.xpath("//*[@href=\"register.php\"]"));
         registerMenuElement.click(); // click on the register menu*/
@@ -30,6 +38,8 @@ public class RegisterUserTest1 {
 
         /*List<WebElement> registerMenuElements = driver.findElements(By.xpath("//*[@href=\"register.php\"]"));
         registerMenuElements.get(0).click();*/
+
+        waitUntilNextElementAppears(By.name("firstName"),25);
 
         //Automating input textbox
         WebElement firstNameElement = driver.findElement(By.name("firstName"));
@@ -65,14 +75,19 @@ public class RegisterUserTest1 {
         // dealing with dropdowns
         Select CountryDropDownElement = new Select(driver.findElement(By.name("country")));
         CountryDropDownElement.selectByVisibleText("AUSTRALIA");
-        Thread.sleep(1500); // wait for 1.5 seconds ,forcefull delay
+        /*Thread.sleep(1500); // wait for 1.5 seconds ,forcefull delay/ removes this thread becuase of waitUntilNext...method*/
         CountryDropDownElement.selectByValue("AUSTRALIA");
-        Thread.sleep(1500);
+        /*Thread.sleep(1500);*/
         CountryDropDownElement.selectByIndex(1);
 
         //SUBMIT BUTTON
         WebElement submitButtonElement = driver.findElement(By.name("submit"));
         submitButtonElement.click(); // click on the register menu
+
+        /*Thread.sleep(3000);*/
+        /*waitUntilElementAppears(location, maxTimeOut);// reducing execution time */
+        waitUntilNextElementAppears(By.xpath("//*[contains(text(),\"Dear\")]"),30);
+
 
 
         WebElement salutationMessageElement = driver.findElement(By.xpath("//*[contains(text(),\"Dear\")]"));
@@ -83,6 +98,12 @@ public class RegisterUserTest1 {
         //close the browser
         driver.quit();
 
+    }
 
+    private WebElement waitUntilNextElementAppears(By locator , int maxTimeOut) {
+        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(maxTimeOut)).until(
+                ExpectedConditions.presenceOfElementLocated(locator)
+        );
+        return element;
     }
 }
