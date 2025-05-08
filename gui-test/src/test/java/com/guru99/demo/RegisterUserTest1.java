@@ -101,7 +101,7 @@ public class RegisterUserTest1 {
         Assert.assertEquals(salutationMessageText, "Dear Impirial College,", "Failed to register user:" );
 
         //close the browser
-        driver.quit();
+        //driver.quit();
 
     }
 
