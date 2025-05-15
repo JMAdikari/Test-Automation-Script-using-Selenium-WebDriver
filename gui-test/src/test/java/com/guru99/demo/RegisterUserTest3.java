@@ -40,7 +40,7 @@ public class RegisterUserTest3 {
 
     @AfterMethod
     public void tearDown() {
-        TestApp.getInstance().closeBrowser();
+        //TestApp.getInstance().closeBrowser();
 
     }
 }

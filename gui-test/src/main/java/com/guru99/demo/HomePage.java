@@ -12,9 +12,10 @@ public class HomePage {
     PropertyFileReader prop = new PropertyFileReader();
     String registerMenuWebElement = prop.getProperty("HomePage" ,"register.menu.element");
 
-    public void clickOnRegisterLink() {
+    public RegisterPage clickOnRegisterLink() {
         TestApp.getInstance().waitUntilNextElementAppears(By.linkText(registerMenuWebElement), 30);
         WebElement registerMenuElement = driver.findElement(By.linkText(registerMenuWebElement));
         registerMenuElement.click();// click on the register menu
+        return new RegisterPage();
     }
 }
