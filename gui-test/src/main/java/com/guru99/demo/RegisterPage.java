@@ -21,64 +21,73 @@ public class RegisterPage {
     String countryWebElement = prop.getProperty("RegisterPage","country.name.element");
     String submitWebElement = prop.getProperty("RegisterPage","submit.element");
 
-    public  void  setFirstName( String firstName){
+    public  RegisterPage  setFirstName( String firstName){
 
         TestApp.getInstance().waitUntilNextElementAppears( By.name(firstNameWebElement),25);
 
         //Automating input textbox
         WebElement firstNameElement = driver.findElement(By.name(firstNameWebElement));
         firstNameElement.sendKeys(firstName); // value for first name text box
+        return  this;//return in same page
     }
 
-    public void  setLastName(String lastName){
+    public RegisterPage  setLastName(String lastName){
         TestApp.getInstance().waitUntilNextElementAppears(By.name(lastNameWebElement),10);
         //Last Name
         WebElement lastNameElement = driver.findElement(By.name(lastNameWebElement));
         lastNameElement.sendKeys(lastName); // value for last name text box
+        return this;
 
     }
 
-    public void setPhoneNumber(String phoneNo){
+    public RegisterPage setPhoneNumber(String phoneNo){
         TestApp.getInstance().waitUntilNextElementAppears(By.name(phoneNoWebElement),10);
         WebElement phoneElement = driver.findElement(By.name(phoneNoWebElement));
         phoneElement.sendKeys(phoneNo);
+        return this;
 
     }
 
-    public void setEmail(String email){
+    public RegisterPage setEmail(String email){
         TestApp.getInstance().waitUntilNextElementAppears(By.name(emailWebElement),10);
         WebElement emailElement = driver.findElement(By.id(emailWebElement));
         emailElement.sendKeys(email);
+        return this;
     }
 
-    public void  setUserName( String userName){
+    public RegisterPage  setUserName( String userName){
         TestApp.getInstance().waitUntilNextElementAppears( By.id(userNameWebElement),10);
         WebElement userNameElement = driver.findElement(By.id(userNameWebElement));
         userNameElement.sendKeys(userName);
+        return this;
     }
 
-    public void  setPassword( String password){
+    public RegisterPage  setPassword( String password){
         TestApp.getInstance().waitUntilNextElementAppears( By.name(passwordWebElement),10);
         WebElement passwordElement = driver.findElement(By.name(passwordWebElement));
         passwordElement.sendKeys(password);
+        return this;
     }
 
-    public void  setConfirmPassword( String confirmPassword){
+    public RegisterPage  setConfirmPassword( String confirmPassword){
         TestApp.getInstance().waitUntilNextElementAppears( By.name(confirmPasswordWebElement),10);
         WebElement confirmPasswordElement = driver.findElement(By.name(confirmPasswordWebElement));
         confirmPasswordElement.sendKeys(confirmPassword);
+        return this;
     }
 
-    public void selectCountry( String countryName){
+    public RegisterPage selectCountry( String countryName){
         TestApp.getInstance().waitUntilNextElementAppears( By.name(countryWebElement),10);
         Select CountryDropDownElement = new Select(driver.findElement(By.name(countryWebElement)));
         CountryDropDownElement.selectByVisibleText(countryName);
+        return this;
     }
 
-    public void submit( ){
+    public RegisterSuccessPage submit( ){
         TestApp.getInstance().waitUntilNextElementAppears( By.name(submitWebElement),10);
         WebElement submitButtonElement = driver.findElement(By.name(submitWebElement));
         submitButtonElement.click();
+        return new RegisterSuccessPage();//redirect to register success page
     }
 
 }
